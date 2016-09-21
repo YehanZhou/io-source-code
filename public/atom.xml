@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hexo</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://yehanzhou.github.io/"/>
+  <updated>2016-09-21T02:35:42.000Z</updated>
+  <id>https://yehanzhou.github.io/</id>
+  
+  <author>
+    <name>Emily Chou</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JS中Math.random()的使用和扩展</title>
+    <link href="https://yehanzhou.github.io/2016/09/21/js-random/"/>
+    <id>https://yehanzhou.github.io/2016/09/21/js-random/</id>
+    <published>2016-09-21T02:31:41.000Z</published>
+    <updated>2016-09-21T02:35:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Math.random()方法返回大于等于 0 小于 1 的一个随机数。对于某些站点来说，这个方法非常实用，因为可以利用它来随机显示一些名人名言和新闻事件。</p>
+<h2 id="在连续整数中取得一个随机数"><a href="#在连续整数中取得一个随机数" class="headerlink" title="在连续整数中取得一个随机数"></a>在连续整数中取得一个随机数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">值 = Math.floor(Math.random() * 可能值的总数 + 第一个可能的值)</div></pre></td></tr></table></figure>
+<p>例：产生1-10的随机数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rand1 = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span> + <span class="number">1</span>);</div></pre></td></tr></table></figure></p>
+<p>编写产生startNumber至endNumber随机数的函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectFrom</span>(<span class="params">startNumber, endNumber</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> choice = endNumber - startNumber + <span class="number">1</span>;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * choice + startNumber)</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> rand2 = selectFrom(<span class="number">2</span>,<span class="number">8</span>);<span class="comment">//产生2至8的随机数</span></div></pre></td></tr></table></figure></p>
+<h2 id="在不相邻整数中取得一个随机数"><a href="#在不相邻整数中取得一个随机数" class="headerlink" title="在不相邻整数中取得一个随机数"></a>在不相邻整数中取得一个随机数</h2><h3 id="在不相邻的两个整数中取得一个随机数"><a href="#在不相邻的两个整数中取得一个随机数" class="headerlink" title="在不相邻的两个整数中取得一个随机数"></a>在不相邻的两个整数中取得一个随机数</h3><p>例：随机产生2或4中的一个数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> rand3 = <span class="built_in">Math</span>.random() &lt; <span class="number">0.5</span> ? <span class="number">2</span> : <span class="number">4</span>;</div></pre></td></tr></table></figure></p>
+<h3 id="在不相邻的多个整数中产生一个随机数"><a href="#在不相邻的多个整数中产生一个随机数" class="headerlink" title="在不相邻的多个整数中产生一个随机数"></a>在不相邻的多个整数中产生一个随机数</h3><p>结合函数参数数组，可编写在不相邻的多个整数中产生一个随机值的函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectFromMess</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">arguments</span>[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="built_in">arguments</span>.length)]</div><div class="line">&#125;</div><div class="line"><span class="comment">//随机产生1、6、8中的一个数</span></div><div class="line"><span class="keyword">var</span> rand4 = selectFromMess(<span class="number">1</span>, <span class="number">6</span>, <span class="number">8</span>);</div><div class="line"></div><div class="line"><span class="comment">//也可随机产生文本</span></div><div class="line"><span class="keyword">var</span> randomTxt1 = selectFromMess(<span class="string">"安慰奖"</span>, <span class="string">"二等奖"</span>, <span class="string">"一等奖"</span>);</div></pre></td></tr></table></figure></p>
+<p>每次要输入这么多参数比较麻烦，可以改写一下函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">selectFromMessArray</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> arr[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * arr.length)]</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arrayTxt=[<span class="string">"一"</span>,<span class="string">"二"</span>,<span class="string">"三"</span>,<span class="string">"四"</span>,<span class="string">"五"</span>];</div><div class="line"><span class="keyword">var</span> randTxt2 = selectFromMessArray(arrayTxt);</div></pre></td></tr></table></figure></p>
+<p>或者不改变原有方法，可以利用apply()这个方法传递数组参数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> randTxt3 = selectFromMess.apply(<span class="literal">null</span>,arrayTxt);</div></pre></td></tr></table></figure></p>
+<p>关于apply方法的使用可以<a href="http://www.cnblogs.com/delin/archive/2010/06/17/1759695.html" target="_blank" rel="external">看这里</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Math.random()方法返回大于等于 0 小于 1 的一个随机数。对于某些站点来说，这个方法非常实用，因为可以利用它来随机显示一些名人名言和新闻事件。&lt;/p&gt;
+&lt;h2 id=&quot;在连续整数中取得一个随机数&quot;&gt;&lt;a href=&quot;#在连续整数中取得一个随机数&quot; class=
+    
+    </summary>
+    
+    
+      <category term="js" scheme="https://yehanzhou.github.io/tags/js/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>将本地仓库提交到github上</title>
+    <link href="https://yehanzhou.github.io/2016/09/19/git-command/"/>
+    <id>https://yehanzhou.github.io/2016/09/19/git-command/</id>
+    <published>2016-09-19T02:32:10.000Z</published>
+    <updated>2016-09-19T08:43:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<ol>
+<li><p>先在github上新建一个仓库,取名,例test</p>
+</li>
+<li><p>本地新建文件夹</p>
+</li>
+<li><p>打开命令行工具cd进这个文件夹</p>
+</li>
+<li><p>执行<code>git init</code>,执行后会在该文件夹下生成一个名为.git的文件夹,里面有有关git的配置</p>
+</li>
+<li><p>关联到远程仓库<br><code>git remote add origin https://YehanZhou@github.com/YehanZhou/test.git</code></p>
+</li>
+<li><p>添加所有文件到暂存区<br><code>git add .</code></p>
+</li>
+<li><p>提交<br><code>git commit -m &quot;description&quot;</code></p>
+</li>
+<li><p>推送<br><code>git push -u origin master</code></p>
+</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;&lt;p&gt;先在github上新建一个仓库,取名,例test&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;本地新建文件夹&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;打开命令行工具cd进这个文件夹&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;执行&lt;code&gt;git init&lt;/code&gt;,执行后会
+    
+    </summary>
+    
+    
+      <category term="git" scheme="https://yehanzhou.github.io/tags/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo命令</title>
+    <link href="https://yehanzhou.github.io/2016/09/18/hello-world/"/>
+    <id>https://yehanzhou.github.io/2016/09/18/hello-world/</id>
+    <published>2016-09-18T02:32:10.000Z</published>
+    <updated>2016-09-19T08:44:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="https://yehanzhou.github.io/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>
