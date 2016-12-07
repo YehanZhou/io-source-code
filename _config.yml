@@ -6,8 +6,8 @@
 title: Emily's blog
 subtitle:
 description:
-author: Emily Chou
-language:
+author: Emily Zhou
+language: zh-Hans
 timezone:
 
 # URL
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: yelee
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
